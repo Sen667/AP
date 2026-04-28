@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Personnes autorisées</title>
+
+    <style>
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 210mm;
+        height: 297mm;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 13px;
+      }
+
+      body {
+        padding: 20mm;
+      }
+
+      .document {
+        width: 100%;
+        height: 100%;
+      }
+
+      .document-title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        margin-bottom: 20mm;
+      }
+
+      .intro {
+        line-height: 1.6;
+        margin-bottom: 15mm;
+        text-align: justify;
+      }
+
+      .field-line {
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 5mm;
+      }
+
+      .field-label {
+        margin-right: 5mm;
+      }
+
+      .field-value {
+        flex: 1;
+        border-bottom: 1px dotted #000;
+        padding-left: 3mm;
+      }
+
+      .authorize-label {
+        font-weight: bold;
+        margin: 10mm 0 5mm 0;
+      }
+
+      .person-name-line {
+        border-bottom: 1px dotted #000;
+        height: 8mm;
+        margin-bottom: 10mm;
+      }
+
+      .purpose-text {
+        margin: 10mm 0;
+        line-height: 1.7;
+        text-align: justify;
+      }
+
+      .notice {
+        margin-top: 10mm;
+        line-height: 1.6;
+        font-size: 12.5px;
+        text-align: justify;
+      }
+
+      .footer {
+        margin-top: 20mm;
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .signature-label {
+        margin-top: 20mm;
+        margin-bottom: 15mm;
+      }
+
+      .signature-box {
+        border-bottom: 1px solid #000;
+        height: 20mm;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="document">
+      <div class="document-title">
+        Personnes autorisées à venir chercher l'enfant
+      </div>
+
+      <p class="intro">
+        L'enfant ne peut être repris chez l'assistant(e) maternel(le) par
+        d'autres personnes <strong>(impérativement majeures)</strong>
+        que celles ayant signé le contrat ou celles désignées sur l'autorisation
+        suivante :
+      </p>
+
+      <div class="field-line">
+        <span class="field-label">Monsieur et Madame (Parents)</span>
+        <span class="field-value">{{parents_nom}}</span>
+      </div>
+
+      <p class="authorize-label">autorisent Monsieur ou Madame</p>
+
+      <div class="person-name-line">{{personne1_nom}}</div>
+
+      <p>et/ou Monsieur ou Madame,</p>
+
+      <div class="person-name-line">{{personne2_nom}}</div>
+
+      <p class="purpose-text">
+        à venir chercher notre enfant, régulièrement ou occasionnellement, chez
+        l'assistant(e) maternel(le).
+      </p>
+
+      <p class="notice">
+        Il convient qu'elles soient en possession d'une pièce d'identité. Si des
+        personnes autres sont exceptionnellement susceptibles de reprendre
+        l'enfant au domicile de l'assistant(e) maternel(le), celles-ci devront
+        être munies d'une autorisation manuscrite des parents ou du représentant
+        légal de l'enfant, ainsi que d'une pièce d'identité. A défaut, l'enfant
+        ne leur sera pas confié. Si les parents sont séparés, il est impératif
+        que l'autorisation parentale soit complétée.
+      </p>
+
+      <div class="footer">
+        <span>Fait à</span>
+        <span class="field-value" style="margin: 0 10mm">{{fait_a}}</span>
+        <span>le</span>
+        <span class="field-value" style="margin-left: 10mm">{{date}}</span>
+      </div>
+
+      <div class="signature-label">Signature des parents</div>
+      <div class="signature-box">
+        {{#if parent1_nom}}
+        <div style="display: inline-block; margin-right: 30mm">
+          {{{signature parent1_nom}}}
+        </div>
+        {{/if}} {{#if parent2_nom}}
+        <div style="display: inline-block">{{{signature parent2_nom}}}</div>
+        {{/if}}
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,980 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Retourne un message de bienvenue et un lien vers la documentation de l'API.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "message": "Bienvenue sur l'API !",
+                    "documentation": "/api/docs"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Retourner un message de bienvenue",
+        "tags": ["Application"]
+      }
+    },
+    "/api/user/me": {
+      "get": {
+        "operationId": "UserController_getCurrentUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Utilisateur"]
+      }
+    },
+    "/api/user/parent": {
+      "post": {
+        "operationId": "UserController_createParentProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateParentProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Utilisateur"]
+      },
+      "patch": {
+        "operationId": "UserController_updateParentProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateParentProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Utilisateur"]
+      }
+    },
+    "/api/user/assistant": {
+      "post": {
+        "operationId": "UserController_createAssistantProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssistantProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Utilisateur"]
+      },
+      "patch": {
+        "operationId": "UserController_updateAssistantProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssistantProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Utilisateur"]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur authentifié avec succès."
+          }
+        },
+        "summary": "Authentification utilisateur",
+        "tags": ["Authentification"]
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur enregistré avec succès."
+          }
+        },
+        "summary": "Enregistrement d'un nouvel utilisateur",
+        "tags": ["Authentification"]
+      }
+    },
+    "/api/enfant": {
+      "get": {
+        "operationId": "EnfantController_findParentChild",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Enfant"]
+      },
+      "post": {
+        "operationId": "EnfantController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnfantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Enfant"]
+      }
+    },
+    "/api/enfant/{id}": {
+      "patch": {
+        "operationId": "EnfantController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEnfantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Enfant"]
+      },
+      "delete": {
+        "operationId": "EnfantController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Enfant"]
+      }
+    },
+    "/api/personne-autorisee": {
+      "get": {
+        "operationId": "PersonneAutoriseeController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Personne Autorisée"]
+      },
+      "post": {
+        "operationId": "PersonneAutoriseeController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonneAutoriseeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": ["Personne Autorisée"]
+      }
+    },
+    "/api/personne-autorisee/{id}": {
+      "get": {
+        "operationId": "PersonneAutoriseeController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Personne Autorisée"]
+      },
+      "put": {
+        "operationId": "PersonneAutoriseeController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePersonneAutoriseeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Personne Autorisée"]
+      },
+      "delete": {
+        "operationId": "PersonneAutoriseeController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Personne Autorisée"]
+      }
+    },
+    "/api/admin/users": {
+      "get": {
+        "operationId": "AdminController_findAllUsers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    },
+    "/api/admin/users/{id}": {
+      "get": {
+        "operationId": "AdminController_findUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    },
+    "/api/admin/parents": {
+      "get": {
+        "operationId": "AdminController_findAllParents",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    },
+    "/api/admin/parents/{id}": {
+      "get": {
+        "operationId": "AdminController_findParentById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    },
+    "/api/admin/assistants": {
+      "get": {
+        "operationId": "AdminController_findAllAssistants",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    },
+    "/api/admin/assistants/{id}": {
+      "get": {
+        "operationId": "AdminController_findAssistantById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    },
+    "/api/admin/enfants": {
+      "get": {
+        "operationId": "AdminController_findAllChildren",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    },
+    "/api/admin/enfants/{id}": {
+      "get": {
+        "operationId": "AdminController_findChildById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": ["Admin"]
+      }
+    }
+  },
+  "info": {
+    "title": "Fripouilles API",
+    "description": "API du projet d'AP - Les Fripouilles",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "schemas": {
+      "CreateParentProfilDto": {
+        "type": "object",
+        "properties": {
+          "adresse": {
+            "type": "string",
+            "example": "10 rue de la Paix",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "75001",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Paris",
+            "description": "Ville"
+          },
+          "situationFamiliale": {
+            "type": "string",
+            "example": "Marié(e)",
+            "description": "Situation familiale"
+          },
+          "profession": {
+            "type": "string",
+            "example": "Ingénieur",
+            "description": "Profession"
+          },
+          "employeur": {
+            "type": "string",
+            "example": "Entreprise XYZ",
+            "description": "Employeur"
+          },
+          "numeroAllocataire": {
+            "type": "string",
+            "example": "1234567",
+            "description": "Numéro allocataire"
+          },
+          "beneficiaireCAF": {
+            "type": "boolean",
+            "example": true,
+            "description": "Bénéficiaire CAF"
+          },
+          "numeroCAF": {
+            "type": "string",
+            "example": "1234567X",
+            "description": "Numéro CAF"
+          },
+          "contactUrgenceNom": {
+            "type": "string",
+            "example": "Marie Dupont",
+            "description": "Nom du contact d'urgence"
+          },
+          "contactUrgenceTel": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Téléphone du contact d'urgence"
+          }
+        },
+        "required": [
+          "adresse",
+          "codePostal",
+          "ville",
+          "situationFamiliale",
+          "contactUrgenceNom",
+          "contactUrgenceTel"
+        ]
+      },
+      "CreateAssistantProfilDto": {
+        "type": "object",
+        "properties": {
+          "adresse": {
+            "type": "string",
+            "example": "25 avenue des Lilas",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "59000",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Lille",
+            "description": "Ville"
+          },
+          "numeroAgrement": {
+            "type": "string",
+            "example": "AM-2023-12345",
+            "description": "Numéro d'agrément"
+          },
+          "dateObtentionAgrement": {
+            "type": "string",
+            "example": "2020-01-15",
+            "description": "Date d'obtention de l'agrément"
+          },
+          "agrementValide": {
+            "type": "boolean",
+            "example": true,
+            "description": "Agrément valide"
+          },
+          "dateFinAgrement": {
+            "type": "string",
+            "example": "2025-01-15",
+            "description": "Date de fin d'agrément"
+          },
+          "capaciteAccueil": {
+            "type": "number",
+            "example": 2,
+            "description": "Capacité d'accueil (nombre d'enfants)",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "experience": {
+            "type": "number",
+            "example": 5,
+            "description": "Années d'expérience"
+          },
+          "disponibilites": {
+            "type": "string",
+            "example": "Disponible du lundi au vendredi de 7h à 19h",
+            "description": "Disponibilités"
+          }
+        },
+        "required": [
+          "adresse",
+          "codePostal",
+          "ville",
+          "numeroAgrement",
+          "dateObtentionAgrement",
+          "agrementValide",
+          "capaciteAccueil"
+        ]
+      },
+      "UpdateParentProfilDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Le nom de l'utilisateur"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "John",
+            "description": "Le prénom de l'utilisateur"
+          },
+          "telephone": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Le numéro de téléphone de l'utilisateur"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "1990-05-15"
+          },
+          "adresse": {
+            "type": "string",
+            "example": "10 rue de la Paix",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "75001",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Paris",
+            "description": "Ville"
+          },
+          "situationFamiliale": {
+            "type": "string",
+            "example": "Marié(e)",
+            "description": "Situation familiale"
+          },
+          "profession": {
+            "type": "string",
+            "example": "Ingénieur",
+            "description": "Profession"
+          },
+          "employeur": {
+            "type": "string",
+            "example": "Entreprise XYZ",
+            "description": "Employeur"
+          },
+          "numeroAllocataire": {
+            "type": "string",
+            "example": "1234567",
+            "description": "Numéro allocataire"
+          },
+          "beneficiaireCAF": {
+            "type": "boolean",
+            "example": true,
+            "description": "Bénéficiaire CAF"
+          },
+          "numeroCAF": {
+            "type": "string",
+            "example": "1234567X",
+            "description": "Numéro CAF"
+          },
+          "contactUrgenceNom": {
+            "type": "string",
+            "example": "Marie Dupont",
+            "description": "Nom du contact d'urgence"
+          },
+          "contactUrgenceTel": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Téléphone du contact d'urgence"
+          }
+        }
+      },
+      "UpdateAssistantProfilDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Le nom de l'utilisateur"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "John",
+            "description": "Le prénom de l'utilisateur"
+          },
+          "telephone": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Le numéro de téléphone de l'utilisateur"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "1990-05-15"
+          },
+          "adresse": {
+            "type": "string",
+            "example": "25 avenue des Lilas",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "59000",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Lille",
+            "description": "Ville"
+          },
+          "numeroAgrement": {
+            "type": "string",
+            "example": "AM-2023-12345",
+            "description": "Numéro d'agrément"
+          },
+          "dateObtentionAgrement": {
+            "type": "string",
+            "example": "2020-01-15",
+            "description": "Date d'obtention de l'agrément"
+          },
+          "agrementValide": {
+            "type": "boolean",
+            "example": true,
+            "description": "Agrément valide"
+          },
+          "dateFinAgrement": {
+            "type": "string",
+            "example": "2025-01-15",
+            "description": "Date de fin d'agrément"
+          },
+          "capaciteAccueil": {
+            "type": "number",
+            "example": 2,
+            "description": "Capacité d'accueil (nombre d'enfants)",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "experience": {
+            "type": "number",
+            "example": 5,
+            "description": "Années d'expérience"
+          },
+          "disponibilites": {
+            "type": "string",
+            "example": "Disponible du lundi au vendredi de 7h à 19h",
+            "description": "Disponibilités"
+          }
+        }
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com",
+            "description": "L'adresse email de l'utilisateur"
+          },
+          "password": {
+            "type": "string",
+            "example": "StrongP@ssw0rd!",
+            "description": "Le mot de passe de l'utilisateur"
+          }
+        },
+        "required": ["email", "password"]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Le nom de l'utilisateur"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "John",
+            "description": "Le prénom de l'utilisateur"
+          },
+          "telephone": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Le numéro de téléphone de l'utilisateur"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "1990-05-15"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com",
+            "description": "L'email de l'utilisateur"
+          },
+          "password": {
+            "type": "string",
+            "example": "P@ssw0rd!23",
+            "description": "Le mot de passe de l'utilisateur"
+          },
+          "role": {
+            "type": "string",
+            "example": "PARENT",
+            "description": "Le rôle de l'utilisateur",
+            "enum": ["ADMIN", "PARENT", "ASSISTANT"]
+          },
+          "sexe": {
+            "type": "string",
+            "example": "MASCULIN",
+            "description": "Le sexe de l'utilisateur",
+            "enum": ["MASCULIN", "FEMININ"]
+          }
+        },
+        "required": [
+          "nom",
+          "prenom",
+          "telephone",
+          "dateNaissance",
+          "email",
+          "password",
+          "role",
+          "sexe"
+        ]
+      },
+      "CreateEnfantDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Dupont",
+            "description": "Le nom de l'enfant"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Marie",
+            "description": "Le prénom de l'enfant"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "2018-04-12",
+            "description": "La date de naissance de l'enfant"
+          },
+          "sexe": {
+            "type": "string",
+            "example": "FEMININ",
+            "description": "Le sexe de l'enfant",
+            "enum": ["MASCULIN", "FEMININ"]
+          },
+          "allergies": {
+            "type": "object",
+            "example": "Arachides, gluten",
+            "description": "Les allergies de l'enfant"
+          },
+          "remarquesMedicales": {
+            "type": "object",
+            "example": "L'enfant est asthmatique.",
+            "description": "Les remarques médicales de l'enfant"
+          },
+          "medecinTraitant": {
+            "type": "string",
+            "example": "Dr. Martin Dupuis",
+            "description": "Le médecin traitant de l'enfant"
+          },
+          "medecinTraitantTel": {
+            "type": "string",
+            "example": "06 98 76 54 32",
+            "description": "Le téléphone du médecin traitant de l'enfant"
+          }
+        },
+        "required": [
+          "nom",
+          "prenom",
+          "dateNaissance",
+          "sexe",
+          "medecinTraitant",
+          "medecinTraitantTel"
+        ]
+      },
+      "UpdateEnfantDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Dupont",
+            "description": "Le nom de l'enfant"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Marie",
+            "description": "Le prénom de l'enfant"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "2018-04-12",
+            "description": "La date de naissance de l'enfant"
+          },
+          "sexe": {
+            "type": "string",
+            "example": "FEMININ",
+            "description": "Le sexe de l'enfant",
+            "enum": ["MASCULIN", "FEMININ"]
+          },
+          "allergies": {
+            "type": "object",
+            "example": "Arachides, gluten",
+            "description": "Les allergies de l'enfant"
+          },
+          "remarquesMedicales": {
+            "type": "object",
+            "example": "L'enfant est asthmatique.",
+            "description": "Les remarques médicales de l'enfant"
+          },
+          "medecinTraitant": {
+            "type": "string",
+            "example": "Dr. Martin Dupuis",
+            "description": "Le médecin traitant de l'enfant"
+          },
+          "medecinTraitantTel": {
+            "type": "string",
+            "example": "06 98 76 54 32",
+            "description": "Le téléphone du médecin traitant de l'enfant"
+          }
+        }
+      },
+      "CreatePersonneAutoriseeDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdatePersonneAutoriseeDto": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+@import "tailwindcss";
+@import "primereact/resources/themes/lara-light-cyan/theme.css";
+@import "primereact/resources/primereact.css";
+
+
+@theme {
+  --color-primary: oklch(60.9% 0.126 221.723);
+  --white: oklch(100% 0 0);
+}
+
+:root {
+  --primary-color: var(--color-primary);
+  --primary-color-text: var(--white);
+  --primary-hover-color: color-mix(in oklab, var(--color-primary) 85%, black);
+  --primary-active-color: color-mix(in oklab, var(--color-primary) 75%, black);
+}
+
+body {
+  background-color: var(--white);
+}
+
+.p-datatable .p-datatable-thead > tr > th > div,
+.p-datatable .p-datatable-tbody > tr > td > div,
+.p-datatable {
+  justify-content: center;
+}
+
+.p-datatable .p-datatable-emptymessage td {
+  text-align: center;
+}
+
+.p-datatable .p-datatable-header {
+  background: transparent;
+  border: none;
+  padding: 0 0 0.75rem 0;
+}
+
+.p-datatable .p-paginator .p-dropdown {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 5rem;
+}
+
+.p-datatable .p-paginator .p-dropdown .p-dropdown-label {
+  width: auto;
+}
+
+.p-inputtext:enabled:focus {
+  border-color: inherit;
+  box-shadow: none;
+}

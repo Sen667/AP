@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="org.example.fripouilles.controller.MainController"
+           style="-fx-background-color: transparent;">
+
+    <BorderPane fx:id="root" prefHeight="700" prefWidth="1200"
+                style="-fx-background-color: white; -fx-background-radius: 10;">
+
+        <!-- En-tête -->
+        <top>
+            <VBox style="-fx-background-color: #2196F3; -fx-padding: 20;">
+                <HBox alignment="CENTER_LEFT" spacing="20">
+                    <Label text="RAM Les Fripouilles" style="-fx-text-fill: white;">
+                        <font>
+                            <Font name="System Bold" size="20"/>
+                        </font>
+                    </Label>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Rafraîchir" onAction="#handleRefresh"
+                            style="-fx-background-color: transparent; -fx-text-fill: white; -fx-border-color: white; -fx-border-radius: 5;"/>
+                    <Button text="Déconnexion" onAction="#handleLogout"
+                            style="-fx-background-color: white; -fx-text-fill: #2196F3;"/>
+                </HBox>
+            </VBox>
+        </top>
+
+        <!-- Contenu principal -->
+        <center>
+            <TabPane tabClosingPolicy="UNAVAILABLE">
+                <!-- Tab: Inscriptions -->
+                <Tab text="Inscriptions (Réguliers &amp; Occasionnels)">
+                    <VBox spacing="10" VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+                        <HBox spacing="10">
+                            <Button text="Ajouter" onAction="#handleAddInscription" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+                            <Button text="Modifier" onAction="#handleEditInscription" style="-fx-background-color: #FF9800; -fx-text-fill: white;" />
+                            <Button text="Supprimer" onAction="#handleDeleteInscription" style="-fx-background-color: #F44336; -fx-text-fill: white;" />
+                        </HBox>
+                        <TableView fx:id="inscriptionsTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colInscrId" text="ID" prefWidth="50" />
+                                <TableColumn fx:id="colInscrEnfant" text="Enfant" prefWidth="200" />
+                                <TableColumn fx:id="colInscrType" text="Type" prefWidth="150" />
+                                <TableColumn fx:id="colInscrDateDebut" text="Date Début" prefWidth="150" />
+                                <TableColumn fx:id="colInscrStatut" text="Statut" prefWidth="150" />
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+
+                <!-- Tab: Réservations -->
+                <Tab text="Planning des Réservations">
+                    <VBox spacing="10" VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+                        <HBox spacing="10">
+                            <Button text="Ajouter" onAction="#handleAddReservation" style="-fx-background-color: #4CAF50; -fx-text-fill: white;" />
+                            <Button text="Modifier" onAction="#handleEditReservation" style="-fx-background-color: #FF9800; -fx-text-fill: white;" />
+                            <Button text="Supprimer" onAction="#handleDeleteReservation" style="-fx-background-color: #F44336; -fx-text-fill: white;" />
+                        </HBox>
+                        <TableView fx:id="reservationsTable" VBox.vgrow="ALWAYS">
+                            <columns>
+                                <TableColumn fx:id="colResId" text="ID" prefWidth="50" />
+                                <TableColumn fx:id="colResEnfant" text="Enfant" prefWidth="200" />
+                                <TableColumn fx:id="colResDate" text="Date" prefWidth="150" />
+                                <TableColumn fx:id="colResHoraires" text="Horaires" prefWidth="150" />
+                                <TableColumn fx:id="colResStatut" text="Statut" prefWidth="150" />
+                            </columns>
+                        </TableView>
+                    </VBox>
+                </Tab>
+            </TabPane>
+        </center>
+    </BorderPane>
+
+    <!-- Overlay grisé -->
+    <StackPane fx:id="overlay"
+               style="-fx-background-color: rgba(0,0,0,0.45); -fx-background-radius: 10;"
+               visible="false" mouseTransparent="false"/>
+
+</StackPane>

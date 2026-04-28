@@ -1,0 +1,99 @@
+name: fripouilles
+
+services:
+  db:
+    image: postgres:18-alpine
+    restart: always
+    env_file:
+      - backend/.env.docker
+    environment:
+      - POSTGRES_USER=${DB_USERNAME:-fripouilles}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-fripouilles}
+      - POSTGRES_DB=${DB_DATABASE:-fripouilles_db}
+    container_name: fripouilles-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql
+    networks:
+      - fripouilles-network
+    healthcheck:
+      test:
+        ['CMD-SHELL', 'pg_isready -U ${DB_USERNAME:-fripouilles} -d ${DB_DATABASE:-fripouilles_db}']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: prod
+    container_name: fripouilles-api
+    env_file:
+      - backend/.env.docker
+    ports:
+      - '${APP_PORT:-3000}:${APP_PORT:-3000}'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - fripouilles-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:${APP_PORT:-3000}/health']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  prisma-studio:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: builder
+    container_name: fripouilles-prisma-studio
+    env_file:
+      - backend/.env.docker
+    ports:
+      - '51212:51212'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - fripouilles-network
+    entrypoint:
+      - sh
+      - -c
+      - 'npm install -g npm@latest && npx prisma studio --port 51212 --browser none --config=./prisma.config.ts'
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      target: runner
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3000/api}
+    container_name: fripouilles-web
+    env_file:
+      - web/.env.docker
+    ports:
+      - '3001:3001'
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - fripouilles-network
+    healthcheck:
+      test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://localhost:3001']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '10m'
+        max-file: '3'
+
+volumes:
+  pgdata:
+
+networks:
+  fripouilles-network:
+    driver: bridge

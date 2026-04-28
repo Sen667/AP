@@ -1,0 +1,3027 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Retourne un message de bienvenue et un lien vers la documentation de l'API.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "message": "Bienvenue sur l'API !",
+                    "documentation": "/api/docs"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Retourner un message de bienvenue",
+        "tags": [
+          "Application"
+        ]
+      }
+    },
+    "/api/user/me": {
+      "get": {
+        "operationId": "UserController_getCurrentUser",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer les informations de l'utilisateur connecté",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/parent": {
+      "post": {
+        "operationId": "UserController_createParentProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateParentProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Créer un profil parent",
+        "tags": [
+          "Utilisateur"
+        ]
+      },
+      "patch": {
+        "operationId": "UserController_updateParentProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateParentProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Mettre à jour le profil parent",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/assistants": {
+      "get": {
+        "operationId": "UserController_getAllAssistants",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer la liste de toutes les assistantes",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/assistant": {
+      "patch": {
+        "operationId": "UserController_updateAssistantProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAssistantProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Mettre à jour le profil assistant",
+        "tags": [
+          "Utilisateur"
+        ]
+      },
+      "post": {
+        "operationId": "UserController_createAssistantProfile",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssistantProfilDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Créer un profil assistant",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/admin/users": {
+      "get": {
+        "operationId": "UserController_findAllUsers",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les utilisateurs (admin)",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/admin/users/{id}": {
+      "get": {
+        "operationId": "UserController_findUserById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer un utilisateur par ID (admin)",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/admin/parents": {
+      "get": {
+        "operationId": "UserController_findAllParents",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les parents (admin)",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/admin/parents/{id}": {
+      "get": {
+        "operationId": "UserController_findParentById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer un parent par ID (admin)",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/admin/assistants": {
+      "get": {
+        "operationId": "UserController_findAllAssistants",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les assistants (admin)",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/user/admin/assistants/{id}": {
+      "get": {
+        "operationId": "UserController_findAssistantById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer un assistant par ID (admin)",
+        "tags": [
+          "Utilisateur"
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "AuthController_login",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur authentifié avec succès."
+          }
+        },
+        "summary": "Authentification utilisateur",
+        "tags": [
+          "Authentification"
+        ]
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "AuthController_register",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Utilisateur enregistré avec succès."
+          }
+        },
+        "summary": "Enregistrement d'un nouvel utilisateur",
+        "tags": [
+          "Authentification"
+        ]
+      }
+    },
+    "/api/contrat-garde": {
+      "post": {
+        "operationId": "ContratGardeController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateContratGardeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Créer un nouveau contrat de garde",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      },
+      "get": {
+        "operationId": "ContratGardeController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les contrats du parent",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/enfant/{enfantId}": {
+      "get": {
+        "operationId": "ContratGardeController_findByEnfant",
+        "parameters": [
+          {
+            "name": "enfantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les contrats d'un enfant",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/{id}": {
+      "get": {
+        "operationId": "ContratGardeController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer un contrat par son ID",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      },
+      "patch": {
+        "operationId": "ContratGardeController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateContratGardeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Mettre à jour un contrat",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      },
+      "delete": {
+        "operationId": "ContratGardeController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Supprimer un contrat",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/assistant/mes-contrats": {
+      "get": {
+        "operationId": "ContratGardeController_findAllByAssistant",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les contrats de l'assistante",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/assistant/contrat/{id}": {
+      "get": {
+        "operationId": "ContratGardeController_findOneByAssistant",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer un contrat spécifique pour l'assistante",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/assistant/{id}/accepter": {
+      "patch": {
+        "operationId": "ContratGardeController_accepterContrat",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Accepter un contrat de garde",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/assistant/{id}/refuser": {
+      "patch": {
+        "operationId": "ContratGardeController_refuserContrat",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Refuser un contrat de garde",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/assistant/{id}/demander-revocation": {
+      "post": {
+        "operationId": "ContratGardeController_demanderRevocation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DemanderRevocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Demander la révocation d'un contrat actif",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/{id}/traiter-revocation": {
+      "patch": {
+        "operationId": "ContratGardeController_traiterRevocation",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TraiterRevocationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Traiter une demande de révocation (accepter ou refuser)",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/admin/tous": {
+      "get": {
+        "operationId": "ContratGardeController_findAllAdmin",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les contrats du RAM (admin)",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/contrat-garde/assistant/{assistantId}/enfants": {
+      "get": {
+        "operationId": "ContratGardeController_getEnfantsGardesParAssistant",
+        "parameters": [
+          {
+            "name": "assistantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer les enfants gardés par une assistante",
+        "tags": [
+          "Contrat de Garde"
+        ]
+      }
+    },
+    "/api/enfant": {
+      "post": {
+        "operationId": "EnfantController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnfantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Créer un nouvel enfant",
+        "tags": [
+          "Enfant"
+        ]
+      }
+    },
+    "/api/enfant/{id}": {
+      "patch": {
+        "operationId": "EnfantController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEnfantDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Mettre à jour un enfant",
+        "tags": [
+          "Enfant"
+        ]
+      },
+      "delete": {
+        "operationId": "EnfantController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Supprimer un enfant (admin uniquement)",
+        "tags": [
+          "Enfant"
+        ]
+      }
+    },
+    "/api/enfant/mes-enfants": {
+      "get": {
+        "operationId": "EnfantController_findMyChildren",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer mes enfants (parent)",
+        "tags": [
+          "Enfant"
+        ]
+      }
+    },
+    "/api/enfant/admin/enfants": {
+      "get": {
+        "operationId": "EnfantController_findAllChildren",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les enfants (admin)",
+        "tags": [
+          "Enfant"
+        ]
+      }
+    },
+    "/api/enfant/admin/enfants/{id}": {
+      "get": {
+        "operationId": "EnfantController_findChildById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer un enfant par ID (admin)",
+        "tags": [
+          "Enfant"
+        ]
+      }
+    },
+    "/api/personne-autorisee": {
+      "get": {
+        "operationId": "PersonneAutoriseeController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer tous les personnes autorisées",
+        "tags": [
+          "Personne Autorisée"
+        ]
+      },
+      "post": {
+        "operationId": "PersonneAutoriseeController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePersonneAutoriseeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Créer une nouvelle personne autorisée",
+        "tags": [
+          "Personne Autorisée"
+        ]
+      }
+    },
+    "/api/personne-autorisee/{id}": {
+      "get": {
+        "operationId": "PersonneAutoriseeController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer une personne autorisée par ID",
+        "tags": [
+          "Personne Autorisée"
+        ]
+      },
+      "patch": {
+        "operationId": "PersonneAutoriseeController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePersonneAutoriseeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Mettre à jour une personne autorisée",
+        "tags": [
+          "Personne Autorisée"
+        ]
+      },
+      "delete": {
+        "operationId": "PersonneAutoriseeController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Supprimer une personne autorisée",
+        "tags": [
+          "Personne Autorisée"
+        ]
+      }
+    },
+    "/api/admin/statistics": {
+      "get": {
+        "operationId": "AdminController_getStatistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Récupérer les statistiques du RAM",
+        "tags": [
+          "Admin"
+        ]
+      }
+    },
+    "/api/legal-parametres": {
+      "get": {
+        "operationId": "ParametreLegalController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Liste des paramètres légaux actuellement valides"
+          }
+        },
+        "summary": "Récupérer tous les paramètres légaux",
+        "tags": [
+          "Paramètres Légaux"
+        ]
+      },
+      "post": {
+        "operationId": "ParametreLegalController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateParametreLegalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Paramètre légal créé avec succès"
+          },
+          "403": {
+            "description": "Accès refusé - Admin requis"
+          }
+        },
+        "summary": "Créer un nouveau paramètre légal",
+        "tags": [
+          "Paramètres Légaux"
+        ]
+      }
+    },
+    "/api/legal-parametres/{id}": {
+      "get": {
+        "operationId": "ParametreLegalController_findById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paramètre légal trouvé"
+          },
+          "404": {
+            "description": "Paramètre légal non trouvé"
+          }
+        },
+        "summary": "Récupérer un paramètre légal par ID",
+        "tags": [
+          "Paramètres Légaux"
+        ]
+      },
+      "patch": {
+        "operationId": "ParametreLegalController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateParametreLegalDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Paramètre légal mis à jour avec succès"
+          },
+          "404": {
+            "description": "Paramètre légal non trouvé"
+          }
+        },
+        "summary": "Mettre à jour un paramètre légal",
+        "tags": [
+          "Paramètres Légaux"
+        ]
+      },
+      "delete": {
+        "operationId": "ParametreLegalController_delete",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paramètre légal supprimé avec succès"
+          },
+          "404": {
+            "description": "Paramètre légal non trouvé"
+          }
+        },
+        "summary": "Supprimer un paramètre légal",
+        "tags": [
+          "Paramètres Légaux"
+        ]
+      }
+    },
+    "/api/legal-parametres/name/{nom}": {
+      "get": {
+        "operationId": "ParametreLegalController_findByName",
+        "parameters": [
+          {
+            "name": "nom",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paramètre légal trouvé par nom"
+          },
+          "404": {
+            "description": "Paramètre légal non trouvé"
+          }
+        },
+        "tags": [
+          "Paramètres Légaux"
+        ]
+      }
+    },
+    "/api/suivi-garde/assistant": {
+      "post": {
+        "operationId": "SuiviGardeController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSuiviGardeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Créer un suivi de garde (assistante)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      },
+      "get": {
+        "operationId": "SuiviGardeController_findAllByAssistant",
+        "parameters": [
+          {
+            "name": "mois",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "annee",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer tous les suivis de garde (assistante)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-garde/assistant/{id}": {
+      "get": {
+        "operationId": "SuiviGardeController_findOneByAssistant",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer un suivi de garde par ID (assistante)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      },
+      "patch": {
+        "operationId": "SuiviGardeController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSuiviGardeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Mettre à jour un suivi de garde (assistante)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      },
+      "delete": {
+        "operationId": "SuiviGardeController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Supprimer un suivi de garde (assistante)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-garde/parent": {
+      "get": {
+        "operationId": "SuiviGardeController_findAllByParent",
+        "parameters": [
+          {
+            "name": "mois",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "annee",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer tous les suivis de garde (parent)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-garde/parent/{id}": {
+      "get": {
+        "operationId": "SuiviGardeController_findOneByParent",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer un suivi de garde par ID (parent)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-garde/parent/{id}/valider": {
+      "patch": {
+        "operationId": "SuiviGardeController_validerSuivi",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ValiderSuiviGardeDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Valider ou modifier un suivi de garde (parent)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-garde/admin": {
+      "get": {
+        "operationId": "SuiviGardeController_findAll",
+        "parameters": [
+          {
+            "name": "mois",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "annee",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer tous les suivis de garde (admin)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-garde/admin/{id}": {
+      "get": {
+        "operationId": "SuiviGardeController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer un suivi de garde par ID (admin)",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-garde/{id}/historique": {
+      "get": {
+        "operationId": "SuiviGardeController_getHistorique",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer l'historique des modifications d'un suivi de garde",
+        "tags": [
+          "Suivi de garde"
+        ]
+      }
+    },
+    "/api/suivi-journalier": {
+      "post": {
+        "operationId": "SuiviJournalierController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSuiviJournalierDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Suivi créé ou mis à jour avec succès"
+          },
+          "403": {
+            "description": "Accès interdit"
+          },
+          "404": {
+            "description": "Enfant non trouvé"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Créer ou mettre à jour un suivi journalier (Assistant uniquement)",
+        "tags": [
+          "Suivi Journalier"
+        ]
+      }
+    },
+    "/api/suivi-journalier/enfant/{enfantId}": {
+      "get": {
+        "operationId": "SuiviJournalierController_findByEnfant",
+        "parameters": [
+          {
+            "name": "enfantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Liste des suivis récupérée avec succès"
+          },
+          "403": {
+            "description": "Accès interdit"
+          },
+          "404": {
+            "description": "Enfant non trouvé"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer tous les suivis d'un enfant",
+        "tags": [
+          "Suivi Journalier"
+        ]
+      }
+    },
+    "/api/suivi-journalier/{enfantId}/{date}": {
+      "get": {
+        "operationId": "SuiviJournalierController_findOne",
+        "parameters": [
+          {
+            "name": "enfantId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "date",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Suivi récupéré avec succès"
+          },
+          "403": {
+            "description": "Accès interdit"
+          },
+          "404": {
+            "description": "Suivi non trouvé"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer un suivi journalier spécifique",
+        "tags": [
+          "Suivi Journalier"
+        ]
+      }
+    },
+    "/api/suivi-journalier/mes-enfants": {
+      "get": {
+        "operationId": "SuiviJournalierController_getMesEnfants",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Liste des enfants récupérée avec succès"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer la liste des enfants de l'assistant (via contrats actifs)",
+        "tags": [
+          "Suivi Journalier"
+        ]
+      }
+    },
+    "/api/paie/generer": {
+      "post": {
+        "operationId": "PaieController_genererPaie",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenererPaieDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Générer une fiche de paie",
+        "tags": [
+          "Paie"
+        ]
+      }
+    },
+    "/api/paie": {
+      "get": {
+        "operationId": "PaieController_findAll",
+        "parameters": [
+          {
+            "name": "annee",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "mois",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer toutes les fiches de paie",
+        "tags": [
+          "Paie"
+        ]
+      }
+    },
+    "/api/paie/{id}": {
+      "get": {
+        "operationId": "PaieController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Récupérer une fiche de paie par ID",
+        "tags": [
+          "Paie"
+        ]
+      },
+      "delete": {
+        "operationId": "PaieController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Supprimer une fiche de paie",
+        "tags": [
+          "Paie"
+        ]
+      }
+    },
+    "/api/pdf/autorisation": {
+      "post": {
+        "operationId": "PdfController_generateAutorisation",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutorisationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "PDF"
+        ]
+      }
+    },
+    "/api/ateliers": {
+      "get": {
+        "operationId": "AteliersController_findAll",
+        "parameters": [
+          {
+            "name": "typePublic",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Lister tous les ateliers",
+        "tags": [
+          "Ateliers"
+        ]
+      },
+      "post": {
+        "operationId": "AteliersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAtelierDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Créer un atelier (Admin)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/upcoming": {
+      "get": {
+        "operationId": "AteliersController_findUpcoming",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Lister les ateliers à venir",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/{id}": {
+      "get": {
+        "operationId": "AteliersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Détail d'un atelier",
+        "tags": [
+          "Ateliers"
+        ]
+      },
+      "patch": {
+        "operationId": "AteliersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAtelierDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Modifier un atelier (Admin)",
+        "tags": [
+          "Ateliers"
+        ]
+      },
+      "delete": {
+        "operationId": "AteliersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Supprimer un atelier (Admin)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/inscriptions": {
+      "post": {
+        "operationId": "AteliersController_inscrire",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInscriptionAtelierDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "S'inscrire à un atelier (Parent)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/inscriptions/assistant": {
+      "post": {
+        "operationId": "AteliersController_inscrireAssistant",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateInscriptionAtelierDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "S'inscrire à un atelier (Assistant)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/inscriptions/{atelierId}": {
+      "delete": {
+        "operationId": "AteliersController_desinscrire",
+        "parameters": [
+          {
+            "name": "atelierId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Se désinscrire d'un atelier (Parent)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/inscriptions/assistant/{atelierId}": {
+      "delete": {
+        "operationId": "AteliersController_desinscrireAssistant",
+        "parameters": [
+          {
+            "name": "atelierId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Se désinscrire d'un atelier (Assistant)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/inscriptions/mes-inscriptions": {
+      "get": {
+        "operationId": "AteliersController_mesInscriptions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Mes inscriptions (Parent)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/inscriptions/assistant/mes-inscriptions": {
+      "get": {
+        "operationId": "AteliersController_mesInscriptionsAssistant",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Mes inscriptions (Assistant)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    },
+    "/api/ateliers/inscriptions/{inscriptionId}/presence": {
+      "patch": {
+        "operationId": "AteliersController_marquerPresence",
+        "parameters": [
+          {
+            "name": "inscriptionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Marquer présence (Admin)",
+        "tags": [
+          "Ateliers"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Fripouilles API",
+    "description": "API du projet d'AP - Les Fripouilles",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http",
+        "in": "header",
+        "name": "Authorization"
+      }
+    },
+    "schemas": {
+      "CreateParentProfilDto": {
+        "type": "object",
+        "properties": {
+          "adresse": {
+            "type": "string",
+            "example": "10 rue de la Paix",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "75001",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Paris",
+            "description": "Ville"
+          },
+          "situationFamiliale": {
+            "type": "string",
+            "example": "Marié(e)",
+            "description": "Situation familiale"
+          },
+          "profession": {
+            "type": "string",
+            "example": "Ingénieur",
+            "description": "Profession"
+          },
+          "employeur": {
+            "type": "string",
+            "example": "Entreprise XYZ",
+            "description": "Employeur"
+          },
+          "numeroAllocataire": {
+            "type": "string",
+            "example": "1234567",
+            "description": "Numéro allocataire"
+          },
+          "beneficiaireCAF": {
+            "type": "boolean",
+            "example": true,
+            "description": "Bénéficiaire CAF"
+          },
+          "contactUrgenceNom": {
+            "type": "string",
+            "example": "Marie Dupont",
+            "description": "Nom du contact d'urgence"
+          },
+          "contactUrgenceTel": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Téléphone du contact d'urgence"
+          }
+        },
+        "required": [
+          "adresse",
+          "codePostal",
+          "ville",
+          "contactUrgenceNom",
+          "contactUrgenceTel"
+        ]
+      },
+      "UpdateParentProfilDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Le nom de l'utilisateur"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "John",
+            "description": "Le prénom de l'utilisateur"
+          },
+          "telephone": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Le numéro de téléphone de l'utilisateur"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "1990-05-15"
+          },
+          "adresse": {
+            "type": "string",
+            "example": "10 rue de la Paix",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "75001",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Paris",
+            "description": "Ville"
+          },
+          "situationFamiliale": {
+            "type": "string",
+            "example": "Marié(e)",
+            "description": "Situation familiale"
+          },
+          "profession": {
+            "type": "string",
+            "example": "Ingénieur",
+            "description": "Profession"
+          },
+          "employeur": {
+            "type": "string",
+            "example": "Entreprise XYZ",
+            "description": "Employeur"
+          },
+          "numeroAllocataire": {
+            "type": "string",
+            "example": "1234567",
+            "description": "Numéro allocataire"
+          },
+          "beneficiaireCAF": {
+            "type": "boolean",
+            "example": true,
+            "description": "Bénéficiaire CAF"
+          },
+          "contactUrgenceNom": {
+            "type": "string",
+            "example": "Marie Dupont",
+            "description": "Nom du contact d'urgence"
+          },
+          "contactUrgenceTel": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Téléphone du contact d'urgence"
+          }
+        }
+      },
+      "UpdateAssistantProfilDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Le nom de l'utilisateur"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "John",
+            "description": "Le prénom de l'utilisateur"
+          },
+          "telephone": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Le numéro de téléphone de l'utilisateur"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "1990-05-15"
+          },
+          "adresse": {
+            "type": "string",
+            "example": "25 avenue des Lilas",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "59000",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Lille",
+            "description": "Ville"
+          },
+          "numeroAgrement": {
+            "type": "string",
+            "example": "AM-2023-12345",
+            "description": "Numéro d'agrément"
+          },
+          "dateObtentionAgrement": {
+            "type": "string",
+            "example": "2020-01-15",
+            "description": "Date d'obtention de l'agrément"
+          },
+          "dateFinAgrement": {
+            "type": "string",
+            "example": "2025-01-15",
+            "description": "Date de fin d'agrément"
+          },
+          "capaciteAccueil": {
+            "type": "number",
+            "example": 2,
+            "description": "Capacité d'accueil (nombre d'enfants)",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "experience": {
+            "type": "number",
+            "example": 5,
+            "description": "Années d'expérience"
+          },
+          "disponibilites": {
+            "type": "string",
+            "example": "Disponible du lundi au vendredi de 7h à 19h",
+            "description": "Disponibilités"
+          }
+        }
+      },
+      "CreateAssistantProfilDto": {
+        "type": "object",
+        "properties": {
+          "adresse": {
+            "type": "string",
+            "example": "25 avenue des Lilas",
+            "description": "Adresse"
+          },
+          "codePostal": {
+            "type": "string",
+            "example": "59000",
+            "description": "Code postal"
+          },
+          "ville": {
+            "type": "string",
+            "example": "Lille",
+            "description": "Ville"
+          },
+          "numeroAgrement": {
+            "type": "string",
+            "example": "AM-2023-12345",
+            "description": "Numéro d'agrément"
+          },
+          "dateObtentionAgrement": {
+            "type": "string",
+            "example": "2020-01-15",
+            "description": "Date d'obtention de l'agrément"
+          },
+          "dateFinAgrement": {
+            "type": "string",
+            "example": "2025-01-15",
+            "description": "Date de fin d'agrément"
+          },
+          "capaciteAccueil": {
+            "type": "number",
+            "example": 2,
+            "description": "Capacité d'accueil (nombre d'enfants)",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "experience": {
+            "type": "number",
+            "example": 5,
+            "description": "Années d'expérience"
+          },
+          "disponibilites": {
+            "type": "string",
+            "example": "Disponible du lundi au vendredi de 7h à 19h",
+            "description": "Disponibilités"
+          }
+        },
+        "required": [
+          "adresse",
+          "codePostal",
+          "ville",
+          "numeroAgrement",
+          "dateObtentionAgrement",
+          "capaciteAccueil"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com",
+            "description": "L'adresse email de l'utilisateur"
+          },
+          "password": {
+            "type": "string",
+            "example": "StrongP@ssw0rd!",
+            "description": "Le mot de passe de l'utilisateur"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Doe",
+            "description": "Le nom de l'utilisateur"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "John",
+            "description": "Le prénom de l'utilisateur"
+          },
+          "telephone": {
+            "type": "string",
+            "example": "06 12 34 56 78",
+            "description": "Le numéro de téléphone de l'utilisateur"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "1990-05-15"
+          },
+          "email": {
+            "type": "string",
+            "example": "john.doe@example.com",
+            "description": "L'email de l'utilisateur"
+          },
+          "password": {
+            "type": "string",
+            "example": "P@ssw0rd!23",
+            "description": "Le mot de passe de l'utilisateur"
+          },
+          "role": {
+            "type": "string",
+            "example": "PARENT",
+            "description": "Le rôle de l'utilisateur",
+            "enum": [
+              "ADMIN",
+              "PARENT",
+              "ASSISTANT"
+            ]
+          },
+          "sexe": {
+            "type": "string",
+            "example": "MASCULIN",
+            "description": "Le sexe de l'utilisateur",
+            "enum": [
+              "MASCULIN",
+              "FEMININ"
+            ]
+          }
+        },
+        "required": [
+          "nom",
+          "prenom",
+          "telephone",
+          "dateNaissance",
+          "email",
+          "password",
+          "role",
+          "sexe"
+        ]
+      },
+      "CreateContratGardeDto": {
+        "type": "object",
+        "properties": {
+          "enfantId": {
+            "type": "number",
+            "description": "ID de l'enfant"
+          },
+          "assistantId": {
+            "type": "number",
+            "description": "ID de l'assistante maternelle"
+          },
+          "dateDebut": {
+            "type": "string",
+            "description": "Date de début du contrat"
+          },
+          "dateFin": {
+            "type": "string",
+            "description": "Date de fin du contrat (optionnelle)"
+          },
+          "tarifHoraireBrut": {
+            "type": "number",
+            "description": "Tarif horaire brut en euros"
+          },
+          "nombreHeuresSemaine": {
+            "type": "number",
+            "description": "Nombre d'heures par semaine"
+          },
+          "indemniteEntretien": {
+            "type": "number",
+            "description": "Indemnité d'entretien en euros"
+          },
+          "indemniteRepas": {
+            "type": "number",
+            "description": "Indemnité de repas en euros"
+          },
+          "indemniteKm": {
+            "type": "number",
+            "description": "Indemnité kilométrique en euros (optionnelle)"
+          }
+        },
+        "required": [
+          "enfantId",
+          "assistantId",
+          "dateDebut",
+          "tarifHoraireBrut",
+          "nombreHeuresSemaine",
+          "indemniteEntretien",
+          "indemniteRepas"
+        ]
+      },
+      "UpdateContratGardeDto": {
+        "type": "object",
+        "properties": {
+          "enfantId": {
+            "type": "number",
+            "description": "ID de l'enfant"
+          },
+          "assistantId": {
+            "type": "number",
+            "description": "ID de l'assistante maternelle"
+          },
+          "dateDebut": {
+            "type": "string",
+            "description": "Date de début du contrat"
+          },
+          "dateFin": {
+            "type": "string",
+            "description": "Date de fin du contrat (optionnelle)"
+          },
+          "tarifHoraireBrut": {
+            "type": "number",
+            "description": "Tarif horaire brut en euros"
+          },
+          "nombreHeuresSemaine": {
+            "type": "number",
+            "description": "Nombre d'heures par semaine"
+          },
+          "indemniteEntretien": {
+            "type": "number",
+            "description": "Indemnité d'entretien en euros"
+          },
+          "indemniteRepas": {
+            "type": "number",
+            "description": "Indemnité de repas en euros"
+          },
+          "indemniteKm": {
+            "type": "number",
+            "description": "Indemnité kilométrique en euros (optionnelle)"
+          }
+        }
+      },
+      "DemanderRevocationDto": {
+        "type": "object",
+        "properties": {
+          "motif": {
+            "type": "string",
+            "description": "Motif de la demande de révocation du contrat",
+            "example": "Changement de situation personnelle nécessitant un arrêt de l'activité"
+          }
+        },
+        "required": [
+          "motif"
+        ]
+      },
+      "TraiterRevocationDto": {
+        "type": "object",
+        "properties": {
+          "accepter": {
+            "type": "boolean",
+            "description": "Accepter ou refuser la demande de révocation",
+            "example": true
+          },
+          "commentaire": {
+            "type": "string",
+            "description": "Commentaire du parent (optionnel)",
+            "example": "J'accepte la révocation du contrat"
+          }
+        },
+        "required": [
+          "accepter"
+        ]
+      },
+      "CreateEnfantDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Dupont",
+            "description": "Le nom de l'enfant"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Marie",
+            "description": "Le prénom de l'enfant"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "2018-04-12",
+            "description": "La date de naissance de l'enfant"
+          },
+          "sexe": {
+            "type": "string",
+            "example": "FEMININ",
+            "description": "Le sexe de l'enfant",
+            "enum": [
+              "MASCULIN",
+              "FEMININ"
+            ]
+          },
+          "allergies": {
+            "type": "object",
+            "example": "Arachides, gluten",
+            "description": "Les allergies de l'enfant"
+          },
+          "remarquesMedicales": {
+            "type": "object",
+            "example": "L'enfant est asthmatique.",
+            "description": "Les remarques médicales de l'enfant"
+          },
+          "medecinTraitant": {
+            "type": "string",
+            "example": "Dr. Martin Dupuis",
+            "description": "Le médecin traitant de l'enfant"
+          },
+          "medecinTraitantTel": {
+            "type": "string",
+            "example": "06 98 76 54 32",
+            "description": "Le téléphone du médecin traitant de l'enfant"
+          }
+        },
+        "required": [
+          "nom",
+          "prenom",
+          "dateNaissance",
+          "sexe",
+          "medecinTraitant",
+          "medecinTraitantTel"
+        ]
+      },
+      "UpdateEnfantDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "example": "Dupont",
+            "description": "Le nom de l'enfant"
+          },
+          "prenom": {
+            "type": "string",
+            "example": "Marie",
+            "description": "Le prénom de l'enfant"
+          },
+          "dateNaissance": {
+            "type": "string",
+            "example": "2018-04-12",
+            "description": "La date de naissance de l'enfant"
+          },
+          "sexe": {
+            "type": "string",
+            "example": "FEMININ",
+            "description": "Le sexe de l'enfant",
+            "enum": [
+              "MASCULIN",
+              "FEMININ"
+            ]
+          },
+          "allergies": {
+            "type": "object",
+            "example": "Arachides, gluten",
+            "description": "Les allergies de l'enfant"
+          },
+          "remarquesMedicales": {
+            "type": "object",
+            "example": "L'enfant est asthmatique.",
+            "description": "Les remarques médicales de l'enfant"
+          },
+          "medecinTraitant": {
+            "type": "string",
+            "example": "Dr. Martin Dupuis",
+            "description": "Le médecin traitant de l'enfant"
+          },
+          "medecinTraitantTel": {
+            "type": "string",
+            "example": "06 98 76 54 32",
+            "description": "Le téléphone du médecin traitant de l'enfant"
+          }
+        }
+      },
+      "CreatePersonneAutoriseeDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdatePersonneAutoriseeDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateParametreLegalDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateParametreLegalDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "CreateSuiviGardeDto": {
+        "type": "object",
+        "properties": {
+          "contratId": {
+            "type": "number",
+            "description": "ID du contrat de garde"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date de garde (format: YYYY-MM-DD)"
+          },
+          "arriveeMinutes": {
+            "type": "number",
+            "description": "Heure d'arrivée en minutes depuis minuit (0-1439)"
+          },
+          "departMinutes": {
+            "type": "number",
+            "description": "Heure de départ en minutes depuis minuit (0-1439)"
+          },
+          "repasFournis": {
+            "type": "number",
+            "description": "Nombre de repas fournis",
+            "default": 0
+          },
+          "fraisDivers": {
+            "type": "number",
+            "description": "Frais divers en euros"
+          },
+          "km": {
+            "type": "number",
+            "description": "Kilomètres parcourus"
+          }
+        },
+        "required": [
+          "contratId",
+          "date",
+          "repasFournis"
+        ]
+      },
+      "UpdateSuiviGardeDto": {
+        "type": "object",
+        "properties": {
+          "contratId": {
+            "type": "number",
+            "description": "ID du contrat de garde"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date de garde (format: YYYY-MM-DD)"
+          },
+          "arriveeMinutes": {
+            "type": "number",
+            "description": "Heure d'arrivée en minutes depuis minuit (0-1439)"
+          },
+          "departMinutes": {
+            "type": "number",
+            "description": "Heure de départ en minutes depuis minuit (0-1439)"
+          },
+          "repasFournis": {
+            "type": "number",
+            "description": "Nombre de repas fournis",
+            "default": 0
+          },
+          "fraisDivers": {
+            "type": "number",
+            "description": "Frais divers en euros"
+          },
+          "km": {
+            "type": "number",
+            "description": "Kilomètres parcourus"
+          }
+        }
+      },
+      "ValiderSuiviGardeDto": {
+        "type": "object",
+        "properties": {
+          "arriveeMinutes": {
+            "type": "number",
+            "description": "Heure d'arrivée en minutes depuis minuit (0-1439)"
+          },
+          "departMinutes": {
+            "type": "number",
+            "description": "Heure de départ en minutes depuis minuit (0-1439)"
+          },
+          "repasFournis": {
+            "type": "number",
+            "description": "Nombre de repas fournis"
+          },
+          "fraisDivers": {
+            "type": "number",
+            "description": "Frais divers en euros"
+          },
+          "km": {
+            "type": "number",
+            "description": "Kilomètres parcourus"
+          },
+          "statut": {
+            "type": "string",
+            "description": "Statut de validation",
+            "enum": [
+              "EN_ATTENTE",
+              "VALIDE",
+              "REFUSE"
+            ],
+            "example": "VALIDE"
+          },
+          "commentaireParent": {
+            "type": "string",
+            "description": "Commentaire du parent"
+          }
+        },
+        "required": [
+          "statut"
+        ]
+      },
+      "CreateSuiviJournalierDto": {
+        "type": "object",
+        "properties": {
+          "enfantId": {
+            "type": "number",
+            "description": "ID de l'enfant"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date du suivi (YYYY-MM-DD)"
+          },
+          "temperature": {
+            "type": "number",
+            "description": "Température en °C"
+          },
+          "pleurs": {
+            "type": "string",
+            "description": "Informations sur les pleurs"
+          },
+          "besoins": {
+            "type": "string",
+            "description": "Informations sur les besoins (couches, etc.)"
+          },
+          "repasHoraires": {
+            "type": "string",
+            "description": "Horaires des repas"
+          },
+          "repasAliments": {
+            "type": "string",
+            "description": "Aliments consommés"
+          },
+          "dodoDeb": {
+            "type": "string",
+            "description": "Heure de début de sieste"
+          },
+          "dodoFin": {
+            "type": "string",
+            "description": "Heure de fin de sieste"
+          },
+          "humeur": {
+            "type": "string",
+            "description": "Humeur (séparée par virgules)"
+          },
+          "activites": {
+            "type": "string",
+            "description": "Activités de la journée"
+          },
+          "promenadeHoraires": {
+            "type": "string",
+            "description": "Horaires des promenades"
+          },
+          "remarques": {
+            "type": "string",
+            "description": "Remarques générales"
+          }
+        },
+        "required": [
+          "enfantId",
+          "date"
+        ]
+      },
+      "GenererPaieDto": {
+        "type": "object",
+        "properties": {
+          "contratId": {
+            "type": "number",
+            "description": "ID du contrat de garde"
+          },
+          "mois": {
+            "type": "number",
+            "description": "Mois (1-12)",
+            "minimum": 1,
+            "maximum": 12
+          },
+          "annee": {
+            "type": "number",
+            "description": "Année",
+            "example": 2026
+          },
+          "commentaire": {
+            "type": "string",
+            "description": "Commentaire optionnel"
+          }
+        },
+        "required": [
+          "contratId",
+          "mois",
+          "annee"
+        ]
+      },
+      "AutorisationDto": {
+        "type": "object",
+        "properties": {
+          "parentsNom": {
+            "type": "string",
+            "description": "Nom des parents (ex: M. et Mme Dupont)"
+          },
+          "parent1Nom": {
+            "type": "string",
+            "description": "Nom du parent 1 pour la signature"
+          },
+          "parent2Nom": {
+            "type": "string",
+            "description": "Nom du parent 2 pour la signature"
+          },
+          "personne1Nom": {
+            "type": "string",
+            "description": "Nom de la première personne autorisée"
+          },
+          "personne1Adresse": {
+            "type": "string",
+            "description": "Adresse de la première personne autorisée"
+          },
+          "personne2Nom": {
+            "type": "string",
+            "description": "Nom de la deuxième personne autorisée"
+          },
+          "personne2Adresse": {
+            "type": "string",
+            "description": "Adresse de la deuxième personne autorisée"
+          },
+          "personne2Ville": {
+            "type": "string",
+            "description": "Ville de la deuxième personne autorisée"
+          },
+          "faitA": {
+            "type": "string",
+            "description": "Lieu où le document est signé"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date de signature"
+          }
+        },
+        "required": [
+          "parentsNom",
+          "personne1Nom",
+          "faitA",
+          "date"
+        ]
+      },
+      "CreateAtelierDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "description": "Nom de l'atelier"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description de l'atelier"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date de l'atelier (ISO 8601)"
+          },
+          "debutMinutes": {
+            "type": "number",
+            "description": "Heure de début (minutes depuis minuit)"
+          },
+          "finMinutes": {
+            "type": "number",
+            "description": "Heure de fin (minutes depuis minuit)"
+          },
+          "dateLimiteInscription": {
+            "type": "string",
+            "description": "Date limite d'inscription (ISO 8601)"
+          },
+          "nombrePlaces": {
+            "type": "number",
+            "description": "Nombre de places disponibles"
+          },
+          "lieu": {
+            "type": "string",
+            "description": "Lieu de l'atelier"
+          },
+          "typePublic": {
+            "type": "string",
+            "enum": [
+              "ENFANT",
+              "PARENT_UNIQUEMENT",
+              "ASSISTANT_UNIQUEMENT",
+              "MIXTE"
+            ],
+            "description": "Type de public visé"
+          },
+          "ageMinMois": {
+            "type": "number",
+            "description": "Âge minimum en mois"
+          },
+          "ageMaxMois": {
+            "type": "number",
+            "description": "Âge maximum en mois"
+          },
+          "animateurId": {
+            "type": "number",
+            "description": "ID de l'animatrice (assistante)"
+          }
+        },
+        "required": [
+          "nom",
+          "date",
+          "debutMinutes",
+          "finMinutes",
+          "dateLimiteInscription",
+          "nombrePlaces",
+          "lieu",
+          "typePublic"
+        ]
+      },
+      "UpdateAtelierDto": {
+        "type": "object",
+        "properties": {
+          "nom": {
+            "type": "string",
+            "description": "Nom de l'atelier"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description de l'atelier"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date de l'atelier (ISO 8601)"
+          },
+          "debutMinutes": {
+            "type": "number",
+            "description": "Heure de début (minutes depuis minuit)"
+          },
+          "finMinutes": {
+            "type": "number",
+            "description": "Heure de fin (minutes depuis minuit)"
+          },
+          "dateLimiteInscription": {
+            "type": "string",
+            "description": "Date limite d'inscription (ISO 8601)"
+          },
+          "nombrePlaces": {
+            "type": "number",
+            "description": "Nombre de places disponibles"
+          },
+          "lieu": {
+            "type": "string",
+            "description": "Lieu de l'atelier"
+          },
+          "typePublic": {
+            "type": "string",
+            "enum": [
+              "ENFANT",
+              "PARENT_UNIQUEMENT",
+              "ASSISTANT_UNIQUEMENT",
+              "MIXTE"
+            ],
+            "description": "Type de public visé"
+          },
+          "ageMinMois": {
+            "type": "number",
+            "description": "Âge minimum en mois"
+          },
+          "ageMaxMois": {
+            "type": "number",
+            "description": "Âge maximum en mois"
+          },
+          "animateurId": {
+            "type": "number",
+            "description": "ID de l'animatrice (assistante)"
+          }
+        }
+      },
+      "CreateInscriptionAtelierDto": {
+        "type": "object",
+        "properties": {
+          "atelierId": {
+            "type": "number",
+            "description": "ID de l'atelier"
+          },
+          "enfantId": {
+            "type": "number",
+            "description": "ID de l'enfant (optionnel selon le type de public)"
+          }
+        },
+        "required": [
+          "atelierId"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "bearer": []
+    }
+  ]
+}

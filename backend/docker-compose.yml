@@ -1,0 +1,79 @@
+name: fripouilles
+
+services:
+  db:
+    image: postgres:18-alpine
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USERNAME:-fripouilles}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-fripouilles}
+      - POSTGRES_DB=${DB_DATABASE:-fripouilles-db}
+    container_name: fripouilles-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - fripouilles-network
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'pg_isready -U ${DB_USERNAME:-fripouilles} -d ${DB_DATABASE:-fripouilles-db}',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fripouilles-api
+    env_file:
+      - .env.docker
+    environment:
+      - DATABASE_URL=postgresql://${DB_USERNAME:-fripouilles}:${DB_PASSWORD:-fripouilles}@db:5432/${DB_DATABASE:-fripouilles-db}?schema=public
+      - DB_HOST=db
+    ports:
+      - '${APP_PORT:-3000}:${APP_PORT:-3000}'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - fripouilles-network
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:${APP_PORT:-3000}/health']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  prisma-studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fripouilles-prisma-studio
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://${DB_USERNAME:-fripouilles}:${DB_PASSWORD:-fripouilles}@db:5432/${DB_DATABASE:-fripouilles-db}?schema=public
+    ports:
+      - '51212:51212'
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - fripouilles-network
+    entrypoint:
+      - sh
+      - -c
+      - npm install -g npm@latest && npx prisma studio --port 51212 --browser none --config=./prisma.config.ts
+
+networks:
+  fripouilles-network:
+    external: true
+
+volumes:
+  pgdata:
