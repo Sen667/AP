@@ -74,7 +74,7 @@ export default async function Home() {
                     href="/espace"
                     className="bg-white text-primary px-4 md:px-6 py-2 md:py-3 rounded-lg font-semibold text-sm md:text-base hover:bg-primary hover:text-white transition whitespace-nowrap"
                   >
-                    Mon espace personnel
+                    Mon espace personnel DEBUGTEST
                   </Link>
                 ) : (
                   <Link
