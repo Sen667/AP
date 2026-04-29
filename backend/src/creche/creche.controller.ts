@@ -1,5 +1,6 @@
 import { Controller, Post, Body, Get, Param, ParseIntPipe, Query, Put, Delete } from '@nestjs/common';
 import { CrecheService } from './creche.service';
+import { CreateAbsenceDto } from './dto/create-absence.dto';
 import { CreateInscriptionDto } from './dto/create-inscription.dto';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
@@ -74,5 +75,29 @@ export class CrecheController {
     @ApiOperation({ summary: 'Supprimer une réservation (Admin)' })
     deleteReservation(@Param('id', ParseIntPipe) id: number) {
         return this.crecheService.deleteReservation(id);
+    }
+
+    @Get('planning')
+    @ApiOperation({ summary: 'Planning du jour : présents, absents, places disponibles (date=YYYY-MM-DD)' })
+    getPlanningJour(@Query('date') date: string) {
+        return this.crecheService.getPlanningJour(date);
+    }
+
+    @Post('absence')
+    @ApiOperation({ summary: 'Signaler une absence sur une inscription régulière' })
+    createAbsence(@Body() dto: CreateAbsenceDto) {
+        return this.crecheService.createAbsence(dto);
+    }
+
+    @Get('inscription/:id/absences')
+    @ApiOperation({ summary: 'Récupérer les absences d\'une inscription' })
+    getAbsencesByInscription(@Param('id', ParseIntPipe) id: number) {
+        return this.crecheService.getAbsencesByInscription(id);
+    }
+
+    @Delete('absence/:id')
+    @ApiOperation({ summary: 'Supprimer une absence' })
+    deleteAbsence(@Param('id', ParseIntPipe) id: number) {
+        return this.crecheService.deleteAbsence(id);
     }
 }

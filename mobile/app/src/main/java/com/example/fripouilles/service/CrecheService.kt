@@ -187,4 +187,53 @@ object CrecheService {
             throw e
         }
     }
+
+    /**
+     * Signaler une absence sur une inscription régulière
+     */
+    suspend fun createAbsence(request: CreateAbsenceRequest): AbsenceCreche {
+        return try {
+            val response = client.post("$API_URL/creche/absence") {
+                headers { append("Authorization", getAuthHeader()) }
+                contentType(ContentType.Application.Json)
+                setBody(request)
+            }
+            Log.d("CrecheService", "Absence créée: ${response.status}")
+            response.body()
+        } catch (e: Exception) {
+            Log.e("CrecheService", "Erreur createAbsence", e)
+            throw e
+        }
+    }
+
+    /**
+     * Récupérer les absences d'une inscription
+     */
+    suspend fun getAbsencesByInscription(inscriptionId: Int): List<AbsenceCreche> {
+        return try {
+            val response = client.get("$API_URL/creche/inscription/$inscriptionId/absences") {
+                headers { append("Authorization", getAuthHeader()) }
+            }
+            Log.d("CrecheService", "Absences récupérées: ${response.status}")
+            response.body()
+        } catch (e: Exception) {
+            Log.e("CrecheService", "Erreur getAbsencesByInscription", e)
+            throw e
+        }
+    }
+
+    /**
+     * Supprimer une absence
+     */
+    suspend fun deleteAbsence(id: Int) {
+        try {
+            val response = client.delete("$API_URL/creche/absence/$id") {
+                headers { append("Authorization", getAuthHeader()) }
+            }
+            Log.d("CrecheService", "Absence supprimée: ${response.status}")
+        } catch (e: Exception) {
+            Log.e("CrecheService", "Erreur deleteAbsence", e)
+            throw e
+        }
+    }
 }

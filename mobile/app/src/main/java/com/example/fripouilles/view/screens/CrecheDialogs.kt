@@ -17,6 +17,123 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+fun SignalerAbsenceDialog(
+    inscription: InscriptionCreche,
+    onDismiss: () -> Unit,
+    onSuccess: () -> Unit
+) {
+    var dateDebut by remember { mutableStateOf("") }
+    var dateFin by remember { mutableStateOf("") }
+    var motif by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+
+    val enfantNom = inscription.enfant?.let { "${it.prenom} ${it.nom}" } ?: "Enfant #${inscription.enfantId}"
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Signaler une absence") },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
+                    .padding(vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+            ) {
+                Card(
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.secondaryContainer
+                    )
+                ) {
+                    Text(
+                        "Inscription régulière — $enfantNom",
+                        modifier = Modifier.padding(12.dp),
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+
+                OutlinedTextField(
+                    value = dateDebut,
+                    onValueChange = { dateDebut = it },
+                    label = { Text("Date de début (YYYY-MM-DD)") },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    placeholder = { Text("2026-05-05") }
+                )
+
+                OutlinedTextField(
+                    value = dateFin,
+                    onValueChange = { dateFin = it },
+                    label = { Text("Date de fin (YYYY-MM-DD)") },
+                    modifier = Modifier.fillMaxWidth(),
+                    singleLine = true,
+                    placeholder = { Text("2026-05-09") }
+                )
+
+                OutlinedTextField(
+                    value = motif,
+                    onValueChange = { motif = it },
+                    label = { Text("Motif (optionnel)") },
+                    modifier = Modifier.fillMaxWidth(),
+                    maxLines = 3,
+                    placeholder = { Text("Maladie, vacances…") }
+                )
+
+                if (errorMessage != null) {
+                    Text(
+                        text = errorMessage ?: "",
+                        color = MaterialTheme.colorScheme.error,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    scope.launch {
+                        if (dateDebut.isEmpty() || dateFin.isEmpty()) {
+                            errorMessage = "Les dates de début et de fin sont obligatoires"
+                            return@launch
+                        }
+                        isLoading = true
+                        errorMessage = null
+                        try {
+                            CrecheService.createAbsence(
+                                CreateAbsenceRequest(
+                                    inscriptionId = inscription.id,
+                                    dateDebut = dateDebut,
+                                    dateFin = dateFin,
+                                    motif = motif.ifBlank { null }
+                                )
+                            )
+                            onSuccess()
+                        } catch (e: Exception) {
+                            errorMessage = "Erreur: ${e.message}"
+                        } finally {
+                            isLoading = false
+                        }
+                    }
+                },
+                enabled = !isLoading
+            ) {
+                if (isLoading) {
+                    CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
+                } else {
+                    Text("Confirmer")
+                }
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss, enabled = !isLoading) { Text("Annuler") }
+        }
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
 fun AddInscriptionDialog(
     parentId: Int,
     onDismiss: () -> Unit,

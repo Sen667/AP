@@ -54,6 +54,93 @@
                     </VBox>
                 </Tab>
 
+                <!-- Tab: Planning du Jour -->
+                <Tab text="Planning du Jour">
+                    <VBox spacing="16" VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+
+                        <!-- Sélecteur de date -->
+                        <HBox spacing="12" alignment="CENTER_LEFT">
+                            <Label text="Date :" style="-fx-font-weight: bold; -fx-font-size: 14;"/>
+                            <DatePicker fx:id="planningDatePicker" prefWidth="180"/>
+                            <Button text="Charger" onAction="#handleLoadPlanning"
+                                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                        </HBox>
+
+                        <!-- Cartes de statistiques -->
+                        <HBox spacing="16">
+                            <!-- Capacité totale -->
+                            <VBox alignment="CENTER" spacing="4" prefWidth="160"
+                                  style="-fx-background-color: #E3F2FD; -fx-background-radius: 8; -fx-padding: 14;">
+                                <Label text="Capacité totale"
+                                       style="-fx-text-fill: #1565C0; -fx-font-size: 12;"/>
+                                <Label fx:id="lblCapacite" text="—"
+                                       style="-fx-text-fill: #1565C0; -fx-font-size: 28; -fx-font-weight: bold;"/>
+                            </VBox>
+                            <!-- Présents -->
+                            <VBox alignment="CENTER" spacing="4" prefWidth="160"
+                                  style="-fx-background-color: #E8F5E9; -fx-background-radius: 8; -fx-padding: 14;">
+                                <Label text="Enfants présents"
+                                       style="-fx-text-fill: #2E7D32; -fx-font-size: 12;"/>
+                                <Label fx:id="lblPresents" text="—"
+                                       style="-fx-text-fill: #2E7D32; -fx-font-size: 28; -fx-font-weight: bold;"/>
+                            </VBox>
+                            <!-- Places disponibles -->
+                            <VBox alignment="CENTER" spacing="4" prefWidth="160"
+                                  style="-fx-background-color: #FFF8E1; -fx-background-radius: 8; -fx-padding: 14;">
+                                <Label text="Places disponibles"
+                                       style="-fx-text-fill: #F57F17; -fx-font-size: 12;"/>
+                                <Label fx:id="lblPlacesDispo" text="—"
+                                       style="-fx-text-fill: #F57F17; -fx-font-size: 28; -fx-font-weight: bold;"/>
+                            </VBox>
+                            <!-- Absences -->
+                            <VBox alignment="CENTER" spacing="4" prefWidth="160"
+                                  style="-fx-background-color: #FFEBEE; -fx-background-radius: 8; -fx-padding: 14;">
+                                <Label text="Absences"
+                                       style="-fx-text-fill: #C62828; -fx-font-size: 12;"/>
+                                <Label fx:id="lblAbsences" text="—"
+                                       style="-fx-text-fill: #C62828; -fx-font-size: 28; -fx-font-weight: bold;"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- Tables présents / absents côte à côte -->
+                        <HBox spacing="16" VBox.vgrow="ALWAYS">
+                            <!-- Présents -->
+                            <VBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="8">
+                                <Label text="Enfants présents"
+                                       style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #2E7D32;"/>
+                                <TableView fx:id="presentsTable" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn fx:id="colPresentNom"    text="Nom"      prefWidth="130"/>
+                                        <TableColumn fx:id="colPresentPrenom" text="Prénom"   prefWidth="130"/>
+                                        <TableColumn fx:id="colPresentType"   text="Type"     prefWidth="110"/>
+                                        <TableColumn fx:id="colPresentHoraires" text="Horaires" prefWidth="110"/>
+                                    </columns>
+                                    <placeholder>
+                                        <Label text="Aucun enfant présent"/>
+                                    </placeholder>
+                                </TableView>
+                            </VBox>
+
+                            <!-- Absents -->
+                            <VBox HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS" spacing="8">
+                                <Label text="Enfants absents"
+                                       style="-fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #C62828;"/>
+                                <TableView fx:id="absentsTable" VBox.vgrow="ALWAYS">
+                                    <columns>
+                                        <TableColumn fx:id="colAbsentNom"    text="Nom"    prefWidth="150"/>
+                                        <TableColumn fx:id="colAbsentPrenom" text="Prénom" prefWidth="150"/>
+                                        <TableColumn fx:id="colAbsentMotif"  text="Motif"  prefWidth="200"/>
+                                    </columns>
+                                    <placeholder>
+                                        <Label text="Aucune absence enregistrée"/>
+                                    </placeholder>
+                                </TableView>
+                            </VBox>
+                        </HBox>
+
+                    </VBox>
+                </Tab>
+
                 <!-- Tab: Réservations -->
                 <Tab text="Planning des Réservations">
                     <VBox spacing="10" VBox.vgrow="ALWAYS" style="-fx-padding: 20;">

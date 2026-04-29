@@ -272,11 +272,27 @@ model InscriptionCreche {
   dateDebut   DateTime
   dateFin     DateTime?
   statut      StatutInscription       @default(ACTIVE)
+  absences    AbsenceCreche[]
   enfant      Enfant                  @relation(fields: [enfantId], references: [id])
   parent      ParentProfil            @relation(fields: [parentId], references: [id])
   jours       JourReservationCreche[]
 
   @@map("inscriptions_creche")
+}
+
+model AbsenceCreche {
+  id            Int               @id @default(autoincrement())
+  inscriptionId Int
+  dateDebut     DateTime
+  dateFin       DateTime
+  motif         String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+  inscription   InscriptionCreche @relation(fields: [inscriptionId], references: [id], onDelete: Cascade)
+
+  @@index([inscriptionId])
+  @@index([dateDebut])
+  @@map("absences_creche")
 }
 
 model JourReservationCreche {

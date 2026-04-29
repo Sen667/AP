@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -34,6 +35,8 @@ fun CrecheScreen(parentId: Int, onNavigateBack: () -> Unit = {}) {
     var errorMessage by remember { mutableStateOf<String?>(null) }
     var showAddInscriptionDialog by remember { mutableStateOf(false) }
     var showAddReservationDialog by remember { mutableStateOf(false) }
+    var showAbsenceDialog by remember { mutableStateOf(false) }
+    var selectedInscriptionForAbsence by remember { mutableStateOf<InscriptionCreche?>(null) }
 
     // Fonction pour charger les données
     suspend fun loadData() {
@@ -122,7 +125,14 @@ fun CrecheScreen(parentId: Int, onNavigateBack: () -> Unit = {}) {
                         )
                     }
                     selectedTab == 0 -> {
-                        InscriptionsTab(inscriptions) { scope.launch { loadData() } }
+                        InscriptionsTab(
+                            inscriptions = inscriptions,
+                            onRefresh = { scope.launch { loadData() } },
+                            onSignalerAbsence = { inscription ->
+                                selectedInscriptionForAbsence = inscription
+                                showAbsenceDialog = true
+                            }
+                        )
                     }
                     else -> {
                         ReservationsTab(reservations) { scope.launch { loadData() } }
@@ -154,10 +164,29 @@ fun CrecheScreen(parentId: Int, onNavigateBack: () -> Unit = {}) {
             }
         )
     }
+
+    if (showAbsenceDialog && selectedInscriptionForAbsence != null) {
+        SignalerAbsenceDialog(
+            inscription = selectedInscriptionForAbsence!!,
+            onDismiss = {
+                showAbsenceDialog = false
+                selectedInscriptionForAbsence = null
+            },
+            onSuccess = {
+                showAbsenceDialog = false
+                selectedInscriptionForAbsence = null
+                scope.launch { loadData() }
+            }
+        )
+    }
 }
 
 @Composable
-fun InscriptionsTab(inscriptions: List<InscriptionCreche>, onRefresh: () -> Unit) {
+fun InscriptionsTab(
+    inscriptions: List<InscriptionCreche>,
+    onRefresh: () -> Unit,
+    onSignalerAbsence: (InscriptionCreche) -> Unit = {}
+) {
     if (inscriptions.isEmpty()) {
         Box(
             modifier = Modifier.fillMaxSize(),
@@ -185,14 +214,19 @@ fun InscriptionsTab(inscriptions: List<InscriptionCreche>, onRefresh: () -> Unit
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             items(inscriptions) { inscription ->
-                InscriptionCard(inscription)
+                InscriptionCard(
+                    inscription = inscription,
+                    onSignalerAbsence = if (inscription.typeAccueil == TypeAccueilCreche.REGULIER) {
+                        { onSignalerAbsence(inscription) }
+                    } else null
+                )
             }
         }
     }
 }
 
 @Composable
-fun InscriptionCard(inscription: InscriptionCreche) {
+fun InscriptionCard(inscription: InscriptionCreche, onSignalerAbsence: (() -> Unit)? = null) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -228,6 +262,25 @@ fun InscriptionCard(inscription: InscriptionCreche) {
                     fontSize = 14.sp,
                     color = Primary
                 )
+            }
+
+            if (onSignalerAbsence != null) {
+                Spacer(modifier = Modifier.height(12.dp))
+                OutlinedButton(
+                    onClick = onSignalerAbsence,
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = ButtonDefaults.outlinedButtonColors(
+                        contentColor = MaterialTheme.colorScheme.error
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Warning,
+                        contentDescription = null,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("Signaler une absence")
+                }
             }
         }
     }

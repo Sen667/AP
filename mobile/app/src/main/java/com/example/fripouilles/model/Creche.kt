@@ -137,6 +137,29 @@ data class CreateReservationRequest(
 )
 
 // ══════════════════════════════════════════════════════════
+// ABSENCE CRÈCHE
+// ══════════════════════════════════════════════════════════
+
+@Serializable
+data class AbsenceCreche(
+    val id: Int,
+    val inscriptionId: Int,
+    val dateDebut: String,
+    val dateFin: String,
+    val motif: String? = null,
+    val createdAt: String? = null,
+    val updatedAt: String? = null
+)
+
+@Serializable
+data class CreateAbsenceRequest(
+    val inscriptionId: Int,
+    val dateDebut: String,
+    val dateFin: String,
+    val motif: String? = null
+)
+
+// ══════════════════════════════════════════════════════════
 // DISPONIBILITÉ
 // ══════════════════════════════════════════════════════════
 

@@ -6,6 +6,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,10 +16,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.example.fripouilles.model.creche.Inscription;
+import org.example.fripouilles.model.creche.PlanningEnfant;
+import org.example.fripouilles.model.creche.PlanningJour;
 import org.example.fripouilles.model.creche.Reservation;
 import org.example.fripouilles.service.ApiService;
 import org.example.fripouilles.service.AuthService;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -43,6 +48,22 @@ public class MainController {
     @FXML
     private TableColumn<Inscription, String> colInscrStatut;
 
+    // Planning du Jour
+    @FXML private DatePicker planningDatePicker;
+    @FXML private Label lblCapacite;
+    @FXML private Label lblPresents;
+    @FXML private Label lblPlacesDispo;
+    @FXML private Label lblAbsences;
+    @FXML private TableView<PlanningEnfant> presentsTable;
+    @FXML private TableColumn<PlanningEnfant, String> colPresentNom;
+    @FXML private TableColumn<PlanningEnfant, String> colPresentPrenom;
+    @FXML private TableColumn<PlanningEnfant, String> colPresentType;
+    @FXML private TableColumn<PlanningEnfant, String> colPresentHoraires;
+    @FXML private TableView<PlanningEnfant> absentsTable;
+    @FXML private TableColumn<PlanningEnfant, String> colAbsentNom;
+    @FXML private TableColumn<PlanningEnfant, String> colAbsentPrenom;
+    @FXML private TableColumn<PlanningEnfant, String> colAbsentMotif;
+
     // Reservations
     @FXML
     private TableView<Reservation> reservationsTable;
@@ -63,6 +84,8 @@ public class MainController {
 
     private ObservableList<Inscription> inscriptionsList = FXCollections.observableArrayList();
     private ObservableList<Reservation> reservationsList = FXCollections.observableArrayList();
+    private ObservableList<PlanningEnfant> presentsList = FXCollections.observableArrayList();
+    private ObservableList<PlanningEnfant> absentsList = FXCollections.observableArrayList();
 
     public MainController() {
         this.authService = new AuthService();
@@ -86,7 +109,9 @@ public class MainController {
             });
 
             setupColumns();
+            setupPlanningColumns();
             handleRefresh();
+            planningDatePicker.setValue(LocalDate.now());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,6 +149,56 @@ public class MainController {
         } catch (Exception e) {
             return dateStr;
         }
+    }
+
+    private void setupPlanningColumns() {
+        colPresentNom.setCellValueFactory(c -> c.getValue().nomProperty());
+        colPresentPrenom.setCellValueFactory(c -> c.getValue().prenomProperty());
+        colPresentType.setCellValueFactory(c -> c.getValue().typeProperty());
+        colPresentHoraires.setCellValueFactory(c -> c.getValue().horairesProperty());
+        presentsTable.setItems(presentsList);
+
+        colAbsentNom.setCellValueFactory(c -> c.getValue().nomProperty());
+        colAbsentPrenom.setCellValueFactory(c -> c.getValue().prenomProperty());
+        colAbsentMotif.setCellValueFactory(c -> c.getValue().motifProperty());
+        absentsTable.setItems(absentsList);
+    }
+
+    @FXML
+    private void handleLoadPlanning() {
+        LocalDate date = planningDatePicker.getValue();
+        if (date == null) {
+            showWarning("Date requise", "Veuillez sélectionner une date.");
+            return;
+        }
+        String dateStr = date.toString(); // YYYY-MM-DD
+        new Thread(() -> {
+            try {
+                PlanningJour planning = apiService.get("/creche/planning?date=" + dateStr, PlanningJour.class);
+                Platform.runLater(() -> {
+                    lblCapacite.setText(String.valueOf(planning.getTotalCapacite()));
+                    lblPresents.setText(String.valueOf(planning.getNbPresents()));
+                    lblPlacesDispo.setText(String.valueOf(planning.getPlacesDisponibles()));
+                    lblAbsences.setText(String.valueOf(planning.getNbAbsences()));
+
+                    presentsList.clear();
+                    if (planning.getPresents() != null) {
+                        for (PlanningJour.PlanningEnfantRaw p : planning.getPresents()) {
+                            presentsList.add(new PlanningEnfant(p.getNom(), p.getPrenom(), p.getType(), p.getHoraires(), null));
+                        }
+                    }
+
+                    absentsList.clear();
+                    if (planning.getAbsents() != null) {
+                        for (PlanningJour.PlanningEnfantRaw a : planning.getAbsents()) {
+                            absentsList.add(new PlanningEnfant(a.getNom(), a.getPrenom(), null, null, a.getMotif()));
+                        }
+                    }
+                });
+            } catch (Exception e) {
+                Platform.runLater(() -> showError("Erreur planning", "Impossible de charger le planning : " + e.getMessage()));
+            }
+        }).start();
     }
 
     @FXML
